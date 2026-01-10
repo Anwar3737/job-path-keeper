@@ -14,7 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      job_applications: {
+        Row: {
+          company: string
+          contact_email: string | null
+          contact_name: string | null
+          created_at: string | null
+          date_applied: string
+          employment_type: string
+          follow_up_due_date: string | null
+          id: string
+          job_title: string
+          job_url: string | null
+          location: string
+          next_action: string | null
+          notes: string | null
+          platform: string
+          salary_range: string | null
+          status: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          company: string
+          contact_email?: string | null
+          contact_name?: string | null
+          created_at?: string | null
+          date_applied: string
+          employment_type?: string
+          follow_up_due_date?: string | null
+          id?: string
+          job_title: string
+          job_url?: string | null
+          location?: string
+          next_action?: string | null
+          notes?: string | null
+          platform?: string
+          salary_range?: string | null
+          status?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          company?: string
+          contact_email?: string | null
+          contact_name?: string | null
+          created_at?: string | null
+          date_applied?: string
+          employment_type?: string
+          follow_up_due_date?: string | null
+          id?: string
+          job_title?: string
+          job_url?: string | null
+          location?: string
+          next_action?: string | null
+          notes?: string | null
+          platform?: string
+          salary_range?: string | null
+          status?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
