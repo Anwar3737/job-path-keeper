@@ -1,12 +1,16 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { startOfWeek, endOfWeek, parseISO, isWithinInterval, isBefore, startOfDay } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { StatsCard } from '@/components/StatsCard';
 import { ApplicationTable } from '@/components/ApplicationTable';
 import { ApplicationModal } from '@/components/ApplicationModal';
 import { FilterBar } from '@/components/FilterBar';
+import { KanbanBoard } from '@/components/KanbanBoard';
 import { useApplications } from '@/hooks/useApplications';
+import { useAuth } from '@/contexts/AuthContext';
 import { JobApplication, ApplicationStatus } from '@/types/application';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Plus, 
   Download, 
@@ -15,16 +19,29 @@ import {
   CheckCircle2, 
   XCircle,
   AlertTriangle,
-  TrendingUp
+  TrendingUp,
+  LogOut,
+  Loader2,
+  LayoutGrid,
+  List
 } from 'lucide-react';
 
 const Index = () => {
-  const { applications, addApplication, updateApplication, deleteApplication, exportToCSV } = useApplications();
+  const { user, loading: authLoading, signOut } = useAuth();
+  const navigate = useNavigate();
+  const { applications, isLoading, addApplication, updateApplication, deleteApplication, exportToCSV } = useApplications();
   const [modalOpen, setModalOpen] = useState(false);
   const [editingApp, setEditingApp] = useState<JobApplication | null>(null);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus | 'all'>('all');
   const [platformFilter, setPlatformFilter] = useState('all');
+  const [viewMode, setViewMode] = useState<'table' | 'kanban'>('table');
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/auth');
+    }
+  }, [user, authLoading, navigate]);
 
   const today = startOfDay(new Date());
   const weekStart = startOfWeek(today);
@@ -65,11 +82,11 @@ const Index = () => {
       .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
   }, [applications, search, statusFilter, platformFilter]);
 
-  const handleSave = (data: Omit<JobApplication, 'id' | 'createdAt' | 'updatedAt'>) => {
+  const handleSave = async (data: Omit<JobApplication, 'id' | 'createdAt' | 'updatedAt'>) => {
     if (editingApp) {
-      updateApplication(editingApp.id, data);
+      await updateApplication(editingApp.id, data);
     } else {
-      addApplication(data);
+      await addApplication(data);
     }
     setEditingApp(null);
   };
@@ -79,10 +96,14 @@ const Index = () => {
     setModalOpen(true);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this application?')) {
-      deleteApplication(id);
+      await deleteApplication(id);
     }
+  };
+
+  const handleStatusChange = async (id: string, status: ApplicationStatus) => {
+    await updateApplication(id, { status });
   };
 
   const clearFilters = () => {
@@ -92,6 +113,18 @@ const Index = () => {
   };
 
   const hasActiveFilters = search !== '' || statusFilter !== 'all' || platformFilter !== 'all';
+
+  if (authLoading || isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -105,7 +138,7 @@ const Index = () => {
                 Job Tracker
               </h1>
               <p className="text-sm text-muted-foreground mt-0.5">
-                Track your applications and stay organized
+                Welcome back, {user.email}
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -116,6 +149,9 @@ const Index = () => {
               <Button size="sm" onClick={() => { setEditingApp(null); setModalOpen(true); }}>
                 <Plus className="w-4 h-4 mr-2" />
                 Add Application
+              </Button>
+              <Button variant="ghost" size="sm" onClick={signOut}>
+                <LogOut className="w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -157,24 +193,47 @@ const Index = () => {
           />
         </div>
 
-        {/* Filter Bar */}
-        <FilterBar
-          search={search}
-          onSearchChange={setSearch}
-          statusFilter={statusFilter}
-          onStatusFilterChange={setStatusFilter}
-          platformFilter={platformFilter}
-          onPlatformFilterChange={setPlatformFilter}
-          onClearFilters={clearFilters}
-          hasActiveFilters={hasActiveFilters}
-        />
+        {/* View Toggle & Filters */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <FilterBar
+            search={search}
+            onSearchChange={setSearch}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            platformFilter={platformFilter}
+            onPlatformFilterChange={setPlatformFilter}
+            onClearFilters={clearFilters}
+            hasActiveFilters={hasActiveFilters}
+          />
+          <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as 'table' | 'kanban')} className="flex-shrink-0">
+            <TabsList>
+              <TabsTrigger value="table" className="gap-2">
+                <List className="w-4 h-4" />
+                Table
+              </TabsTrigger>
+              <TabsTrigger value="kanban" className="gap-2">
+                <LayoutGrid className="w-4 h-4" />
+                Kanban
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
 
-        {/* Applications Table */}
-        <ApplicationTable
-          applications={filteredApplications}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
+        {/* Applications View */}
+        {viewMode === 'table' ? (
+          <ApplicationTable
+            applications={filteredApplications}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ) : (
+          <KanbanBoard
+            applications={filteredApplications}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            onStatusChange={handleStatusChange}
+          />
+        )}
 
         {/* Total Count */}
         <p className="text-sm text-muted-foreground text-center">
